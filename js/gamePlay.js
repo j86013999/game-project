@@ -64,14 +64,18 @@ const gamePlay = {
       // 資源載入完成，加入遊戲物件及相關設定
       // 三種容器放圖片tileSprite/sprite/image
       // tileSprite是可重複出現的東西，sprite是雪碧圖、img不用設寬高
+      this.goUp = this.add.tileSprite(w/2, 91.75, w, h/2, 'ground');
+      this.goDown = this.add.tileSprite(w/2, 367-91.75, w, h/2, 'ground');
       this.sky = this.add.tileSprite(w/2, 54/2, w, 54, 'sky');
       this.mountain = this.add.tileSprite(w/2, 42, w, 42, 'mountain');
       this.ground = this.add.tileSprite(w/2, 215, w, 304, 'ground');
-      let fullScreenSign = this.add.image(600, 30, 'fullScreenSign');
-      fullScreenSign.setScale(0.1);
-      fullScreenSign.setInteractive();
-      fullScreenSign.on('pointerdown', () => {this.scale.toggleFullscreen();
-        this.scale.pageAlignHorizontally = true;});
+      this.fullScreenSign = this.add.image(600, 30, 'fullScreenSign');
+      this.fullScreenSign.setScale(0.1);
+      this.fullScreenSign.setInteractive();
+      this.goUp.setInteractive();
+      this.goDown.setInteractive();
+      this.fullScreenSign.on('pointerdown', () => {this.scale.toggleFullscreen();});
+
        // 畫面左下角信件分數位置
       this.mailScore = this.add.sprite(50,340,'mail');
       // 添加文字
@@ -128,6 +132,16 @@ const gamePlay = {
       // 設定鍵盤
       this.up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
       this.down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+      this.goUp.on('pointerdown', () => {
+        if(startPosition>firstRoad){
+          this.player.setPosition(180, startPosition-=RoadWidth);
+        }
+      });
+      this.goDown.on('pointerdown', () => {
+        if(startPosition<firstRoad+RoadWidth*5){
+          this.player.setPosition(180, startPosition+=RoadWidth);
+        }
+      });
       // // 馬跑音檔
       // this.horseSound = this.sound.add('horseSound');
       // this.horseSound.loop = true;
@@ -178,8 +192,9 @@ const gamePlay = {
           this.player.setPosition(180, startPosition-=RoadWidth);
         }
       }else if(Phaser.Input.Keyboard.JustDown(this.down)){
-        if(startPosition<firstRoad+RoadWidth*5)
-        this.player.setPosition(180, startPosition+=RoadWidth);
+        if(startPosition<firstRoad+RoadWidth*5){
+          this.player.setPosition(180, startPosition+=RoadWidth);
+        }
       }
   }
 };
