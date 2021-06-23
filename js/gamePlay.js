@@ -52,7 +52,7 @@ const gamePlay = {
       this.load.spritesheet('mail', 'images/player/mail.png',{frameWidth:36,frameHeight:33});
       this.load.spritesheet('player', 'images/player/player.png', {frameWidth:69,frameHeight:50});
       // 音檔
-      this.load.audio('horseSound', ['../sound/horse_run.mp3']);
+      // this.load.audio('horseSound', ['../sound/horse_run.mp3']);
       // this.load.audio('getScoreSound', ['../sound/getScore.mp3']);
   },
   create: function(){
@@ -68,13 +68,9 @@ const gamePlay = {
       this.mountain = this.add.tileSprite(w/2, 42, w, 42, 'mountain');
       this.ground = this.add.tileSprite(w/2, 215, w, 304, 'ground');
       this.fullScreenSign = this.add.image(600, 30, 'fullScreenSign');
-      this.openSound = this.add.image(100, 30, 'fullScreenSign');
       this.fullScreenSign.setScale(0.1);
-      this.openSound.setScale(0.1);
       this.fullScreenSign.setInteractive();
-      this.openSound.setInteractive();
       this.fullScreenSign.on('pointerdown', () => {this.scale.toggleFullscreen();});
-
       
 
        // 畫面左下角信件分數位置
@@ -157,15 +153,11 @@ const gamePlay = {
           this.player.setPosition(180, startPosition+=RoadWidth);
         }
       });
-
-      this.openSound.on('pointerdown', () => {
-        this.horseSound = this.sound.add('horseSound');
-        this.horseSound.loop = true;
-        this.horseSound.volume = 0.3;
-        setTimeout(()=>{this.horseSound.play();},700)
-      });
       // // 馬跑音檔
-
+      // this.horseSound = this.sound.add('horseSound');
+      // this.horseSound.loop = true;
+      // this.horseSound.volume = 0.3;
+      // setTimeout(()=>{this.horseSound.play();},700)
       // // 得分音檔
       // this.getScoreSound = this.sound.add('getScoreSound');
       // this.getScoreSound.volume = 0.6;
