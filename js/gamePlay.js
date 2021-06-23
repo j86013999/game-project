@@ -37,7 +37,6 @@ const obPosition = (object)=>{
   return objectArr;
 };
 
-
 const gamePlay = {
   key: 'gamePlay',
   preload: function(){
@@ -53,8 +52,8 @@ const gamePlay = {
       this.load.spritesheet('mail', 'images/player/mail.png',{frameWidth:36,frameHeight:33});
       this.load.spritesheet('player', 'images/player/player.png', {frameWidth:69,frameHeight:50});
       // 音檔
-      // this.load.audio('horseSound', ['../sound/horse_run.mp3']);
-      // this.load.audio('getScoreSound', ['../sound/getScore.mp3']);
+      this.load.audio('horseSound', ['../sound/horse_run.mp3']);
+      this.load.audio('getScoreSound', ['../sound/getScore.mp3']);
   },
   create: function(){
       let _this = this;
@@ -154,14 +153,14 @@ const gamePlay = {
         }
       });
       // // 馬跑音檔
-      // this.horseSound = this.sound.add('horseSound');
-      // this.horseSound.loop = true;
-      // this.horseSound.volume = 0.3;
-      // this.horseSound.play();
+      this.horseSound = this.sound.add('horseSound');
+      this.horseSound.loop = true;
+      this.horseSound.volume = 0.3;
+      setTimeout(()=>{this.horseSound.play();},700)
       // // 得分音檔
-      // this.getScoreSound = this.sound.add('getScoreSound');
-      // this.getScoreSound.volume = 0.6;
-      // this.getScoreSound.setRate(2);
+      this.getScoreSound = this.sound.add('getScoreSound');
+      this.getScoreSound.volume = 0.6;
+      this.getScoreSound.setRate(2);
 
       // 取得分數
       function getScore(player, mail){
@@ -172,7 +171,7 @@ const gamePlay = {
         }
         mail.destroy()
         _this.score.setText(`X ${mailNum}`);
-        // _this.getScoreSound.play();
+        _this.getScoreSound.play();
       }
 
       function playerDead(player, obstacle){
@@ -180,7 +179,7 @@ const gamePlay = {
         _this.gameOver= _this.add.text(w/2 -120,h/3, `Game Over`, {color:'white', fontSize: '50px', fontFamily:"roboto"});
         _this.startAgain= _this.add.text(w/2 -120,h/2, `press here to restart`, {color:'brown', fontSize: '30px', fontFamily:"roboto"});
         _this.player.anims.stop('run', true);
-        // this.horseSound.stop();
+        _this.horseSound.stop();
         _this.startAgain.setInteractive();
         _this.startAgain.on('pointerdown', () => {
           _this.scene.start('gamePlay');
