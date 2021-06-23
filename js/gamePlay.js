@@ -52,11 +52,12 @@ const gamePlay = {
       this.load.spritesheet('mail', 'images/player/mail.png',{frameWidth:36,frameHeight:33});
       this.load.spritesheet('player', 'images/player/player.png', {frameWidth:69,frameHeight:50});
       // 音檔
-      // this.load.audio('horseSound', ['../sound/horse_run.mp3']);
-      // this.load.audio('getScoreSound', ['../sound/getScore.mp3']);
+      this.load.audio('horseSound', ['../sound/horse_run.mp3']);
+      this.load.audio('getScoreSound', ['../sound/getScore.mp3']);
   },
   create: function(){
       let _this = this;
+      this.sound.locked = true
       // 資源載入完成，加入遊戲物件及相關設定
       // 三種容器放圖片tileSprite/sprite/image
       // tileSprite是可重複出現的東西，sprite是雪碧圖、img不用設寬高
@@ -68,9 +69,14 @@ const gamePlay = {
       this.mountain = this.add.tileSprite(w/2, 42, w, 42, 'mountain');
       this.ground = this.add.tileSprite(w/2, 215, w, 304, 'ground');
       this.fullScreenSign = this.add.image(600, 30, 'fullScreenSign');
+      this.openSound = this.add.image(100, 30, 'fullScreenSign');
       this.fullScreenSign.setScale(0.1);
+      this.openSound.setScale(0.1);
       this.fullScreenSign.setInteractive();
+      this.openSound.setInteractive();
       this.fullScreenSign.on('pointerdown', () => {this.scale.toggleFullscreen();});
+      this.openSound.on('pointerdown', () => {this.sound.locked = false});
+      
 
        // 畫面左下角信件分數位置
       this.mailScore = this.add.sprite(50,340,'mail');
@@ -153,12 +159,12 @@ const gamePlay = {
         }
       });
       // // 馬跑音檔
-      // this.horseSound = this.sound.add('horseSound');
-      // this.horseSound.loop = true;
-      // this.horseSound.volume = 0.3;
+      this.horseSound = this.sound.add('horseSound');
+      this.horseSound.loop = true;
+      this.horseSound.volume = 0.3;
       // setTimeout(()=>{this.horseSound.play();},700)
       // // 得分音檔
-      // this.getScoreSound = this.sound.add('getScoreSound');
+      this.getScoreSound = this.sound.add('getScoreSound');
       // this.getScoreSound.volume = 0.6;
       // this.getScoreSound.setRate(2);
 
@@ -189,18 +195,18 @@ const gamePlay = {
         });
       }
 
-      // if (!this.sound.locked)
-      // {
-      //   this.horseSound.play()
-      //   this.getScoreSound.play()
-      // }
-      // else
-      // {
-      //   this.sound.once(Phaser.Sound.Events.UNLOCKED, () => {
-      //     this.horseSound.play()
-      //     this.getScoreSound.play()
-      //   })
-      // }
+      if (!this.sound.locked)
+      {
+        this.horseSound.play()
+        this.getScoreSound.play()
+      }
+      else
+      {
+        this.sound.once(Phaser.Sound.Events.UNLOCKED, () => {
+          this.horseSound.play()
+          this.getScoreSound.play()
+        })
+      }
     },
     update: function(){
       if(gameOver)  return
