@@ -1,4 +1,4 @@
-let w = 800;
+let w = 640;
 let h = 367;
 let mailNum = 0;
 let RoadWidth = 51;
@@ -31,7 +31,7 @@ const obPosition = (object)=>{
   let objectArr = [];
   let start = 300;
   for(let i = 0 ; i<object; i++){
-    start += RandomNum(100,500);
+    start += RandomNum(100,300);
     objectArr.push(start);
   };
   return objectArr;
@@ -147,6 +147,8 @@ const gamePlay = {
       function playerDead(player, mail){
         gameOver = true
       }
+
+      this.scale.startFullscreen();
 
     },
     update: function(){
