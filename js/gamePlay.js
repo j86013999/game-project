@@ -70,7 +70,8 @@ const gamePlay = {
       let fullScreenSign = this.add.image(600, 30, 'fullScreenSign');
       fullScreenSign.setScale(0.1);
       fullScreenSign.setInteractive();
-      fullScreenSign.on('pointerdown', () => {this.scale.toggleFullscreen();});
+      fullScreenSign.on('pointerdown', () => {this.scale.toggleFullscreen();
+        this.scale.pageAlignHorizontally = true;});
        // 畫面左下角信件分數位置
       this.mailScore = this.add.sprite(50,340,'mail');
       // 添加文字
@@ -197,6 +198,10 @@ const config = {
       },
       debug: false
     }
+  },
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   scene: [gamePlay]
 };
