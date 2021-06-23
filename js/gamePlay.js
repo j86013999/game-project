@@ -51,6 +51,7 @@ const gamePlay = {
       this.load.image('bucket', 'images/obstacle/bucket.png');
       this.load.image('stone', 'images/obstacle/stone.png');
       this.load.image('tree', 'images/obstacle/tree.png');
+      this.load.image('fullScreenSign', 'images/bg/fullscreen.png');
       // spritesheet要設定影格寬與高
       this.load.spritesheet('mail', 'images/player/mail.png',{frameWidth:36,frameHeight:33});
       this.load.spritesheet('player', 'images/player/player.png', {frameWidth:69,frameHeight:50});
@@ -66,6 +67,10 @@ const gamePlay = {
       this.sky = this.add.tileSprite(w/2, 54/2, w, 54, 'sky');
       this.mountain = this.add.tileSprite(w/2, 42, w, 42, 'mountain');
       this.ground = this.add.tileSprite(w/2, 215, w, 304, 'ground');
+      let fullScreenSign = this.add.image(600, 30, 'fullScreenSign');
+      fullScreenSign.setScale(0.1);
+      fullScreenSign.setInteractive();
+      fullScreenSign.on('pointerdown', () => {this.scale.toggleFullscreen();});
        // 畫面左下角信件分數位置
       this.mailScore = this.add.sprite(50,340,'mail');
       // 添加文字
@@ -147,8 +152,6 @@ const gamePlay = {
       function playerDead(player, mail){
         gameOver = true
       }
-
-      this.scale.startFullscreen();
 
     },
     update: function(){
