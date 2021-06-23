@@ -56,8 +56,8 @@ const gamePlay = {
       this.load.spritesheet('mail', 'images/player/mail.png',{frameWidth:36,frameHeight:33});
       this.load.spritesheet('player', 'images/player/player.png', {frameWidth:69,frameHeight:50});
       // 音檔
-      this.load.audio('horseSound', ['../sound/horse_run.mp3']);
-      this.load.audio('getScoreSound', ['../sound/getScore.mp3']);
+      // this.load.audio('horseSound', ['../sound/horse_run.mp3']);
+      // this.load.audio('getScoreSound', ['../sound/getScore.mp3']);
   },
   create: function(){
       let _this = this;
@@ -143,14 +143,14 @@ const gamePlay = {
         }
       });
       // // 馬跑音檔
-      this.horseSound = this.sound.add('horseSound');
-      this.horseSound.loop = true;
-      this.horseSound.volume = 0.3;
-      this.horseSound.play();
+      // this.horseSound = this.sound.add('horseSound');
+      // this.horseSound.loop = true;
+      // this.horseSound.volume = 0.3;
+      // this.horseSound.play();
       // // 得分音檔
-      this.getScoreSound = this.sound.add('getScoreSound');
-      this.getScoreSound.volume = 0.6;
-      this.getScoreSound.setRate(2);
+      // this.getScoreSound = this.sound.add('getScoreSound');
+      // this.getScoreSound.volume = 0.6;
+      // this.getScoreSound.setRate(2);
 
       // 取得分數
       function getScore(player, mail){
@@ -161,7 +161,7 @@ const gamePlay = {
         }
         mail.destroy()
         _this.score.setText(`X ${mailNum}`);
-        _this.getScoreSound.play();
+        // _this.getScoreSound.play();
       }
 
       function playerDead(player, mail){
@@ -172,7 +172,7 @@ const gamePlay = {
     update: function(){
       if(gameOver) {
         this.player.anims.stop('run', true);
-        this.horseSound.stop();
+        // this.horseSound.stop();
         return
       }
       // 遊戲狀態更新
