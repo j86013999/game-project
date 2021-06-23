@@ -10,7 +10,7 @@ let fifthRoad = firstRoad + RoadWidth*4;
 let sixthRoad = firstRoad + RoadWidth*5;
 let startPosition = thirdRoad;
 let gameLevel = 1;
-let gameOver = false;
+let gameOver = true;
 //設定遊戲要產生多少個信件
 let creatMail = 1000;
 let creatObstacle = 1000;
@@ -26,7 +26,7 @@ const physics = (object) =>{
 const speed = (object)=>{
   object.x -=2.5 * gameLevel
 };
-//產生遊戲物件數量陣列
+//產生遊戲物件數量與各自距離陣列
 const obPosition = (object)=>{
   let objectArr = [];
   let start = 300;
@@ -36,9 +36,6 @@ const obPosition = (object)=>{
   };
   return objectArr;
 };
-
-
-
 
 
 const gamePlay = {
@@ -94,7 +91,21 @@ const gamePlay = {
         repeat:-1
       });
 
-      this.player.anims.play('run', true);
+    
+      this.anims.create({
+        key:'ready',
+        frames:this.anims.generateFrameNumbers('player', {start: 0, end: 6}),
+        frameRate: 8,
+        repeat:-1
+      });
+      this.player.anims.play('ready', true);
+
+      setTimeout(function(){
+        _this.player.anims.stop('ready', true);
+        _this.player.anims.play('run', true);
+        gameOver = false
+      },1000)
+
 
       // 障礙物位置設定
       const obstacles = [
@@ -164,17 +175,23 @@ const gamePlay = {
         // _this.getScoreSound.play();
       }
 
-      function playerDead(player, mail){
+      function playerDead(player, obstacle){
         gameOver = true
+        _this.gameOver= _this.add.text(w/2 -120,h/3, `Game Over`, {color:'white', fontSize: '50px', fontFamily:"roboto"});
+        _this.startAgain= _this.add.text(w/2 -120,h/2, `press here to restart`, {color:'brown', fontSize: '30px', fontFamily:"roboto"});
+        _this.player.anims.stop('run', true);
+        // this.horseSound.stop();
+        _this.startAgain.setInteractive();
+        _this.startAgain.on('pointerdown', () => {
+          _this.scene.start('gamePlay');
+          startPosition = thirdRoad
+          gameLevel = 1;
+          mailNum = 0;
+        });
       }
-
     },
     update: function(){
-      if(gameOver) {
-        this.player.anims.stop('run', true);
-        // this.horseSound.stop();
-        return
-      }
+      if(gameOver)  return
       // 遊戲狀態更新
       this.sky.tilePositionX += 1 * gameLevel;
       this.mountain.tilePositionX += 2 * gameLevel;
