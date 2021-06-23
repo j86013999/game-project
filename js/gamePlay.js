@@ -156,7 +156,7 @@ const gamePlay = {
       this.horseSound = this.sound.add('horseSound');
       this.horseSound.loop = true;
       this.horseSound.volume = 0.3;
-      setTimeout(()=>{this.horseSound.play();},700)
+      // setTimeout(()=>{this.horseSound.play();},700)
       // // 得分音檔
       this.getScoreSound = this.sound.add('getScoreSound');
       this.getScoreSound.volume = 0.6;
@@ -171,7 +171,7 @@ const gamePlay = {
         }
         mail.destroy()
         _this.score.setText(`X ${mailNum}`);
-        _this.getScoreSound.play();
+        // _this.getScoreSound.play();
       }
 
       function playerDead(player, obstacle){
@@ -187,6 +187,19 @@ const gamePlay = {
           gameLevel = 1;
           mailNum = 0;
         });
+      }
+
+      if (!this.sound.locked)
+      {
+        this.horseSound.play()
+        this.getScoreSound.play()
+      }
+      else
+      {
+        this.sound.once(Phaser.Sound.Events.UNLOCKED, () => {
+          this.horseSound.play()
+          this.getScoreSound.play()
+        })
       }
     },
     update: function(){
