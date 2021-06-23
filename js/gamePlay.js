@@ -53,11 +53,10 @@ const gamePlay = {
       this.load.spritesheet('player', 'images/player/player.png', {frameWidth:69,frameHeight:50});
       // 音檔
       this.load.audio('horseSound', ['../sound/horse_run.mp3']);
-      this.load.audio('getScoreSound', ['../sound/getScore.mp3']);
+      // this.load.audio('getScoreSound', ['../sound/getScore.mp3']);
   },
   create: function(){
       let _this = this;
-      this.sound.locked = true
       // 資源載入完成，加入遊戲物件及相關設定
       // 三種容器放圖片tileSprite/sprite/image
       // tileSprite是可重複出現的東西，sprite是雪碧圖、img不用設寬高
@@ -75,7 +74,7 @@ const gamePlay = {
       this.fullScreenSign.setInteractive();
       this.openSound.setInteractive();
       this.fullScreenSign.on('pointerdown', () => {this.scale.toggleFullscreen();});
-      this.openSound.on('pointerdown', () => {this.sound.locked = false});
+
       
 
        // 畫面左下角信件分數位置
@@ -158,13 +157,17 @@ const gamePlay = {
           this.player.setPosition(180, startPosition+=RoadWidth);
         }
       });
+
+      this.openSound.on('pointerdown', () => {
+        this.horseSound = this.sound.add('horseSound');
+        this.horseSound.loop = true;
+        this.horseSound.volume = 0.3;
+        setTimeout(()=>{this.horseSound.play();},700)
+      });
       // // 馬跑音檔
-      this.horseSound = this.sound.add('horseSound');
-      this.horseSound.loop = true;
-      this.horseSound.volume = 0.3;
-      // setTimeout(()=>{this.horseSound.play();},700)
+
       // // 得分音檔
-      this.getScoreSound = this.sound.add('getScoreSound');
+      // this.getScoreSound = this.sound.add('getScoreSound');
       // this.getScoreSound.volume = 0.6;
       // this.getScoreSound.setRate(2);
 
@@ -193,19 +196,6 @@ const gamePlay = {
           gameLevel = 1;
           mailNum = 0;
         });
-      }
-
-      if (!this.sound.locked)
-      {
-        this.horseSound.play()
-        this.getScoreSound.play()
-      }
-      else
-      {
-        this.sound.once(Phaser.Sound.Events.UNLOCKED, () => {
-          this.horseSound.play()
-          this.getScoreSound.play()
-        })
       }
     },
     update: function(){
