@@ -159,9 +159,9 @@ const gamePlay = {
       this.horseSound.volume = 0.3;
       setTimeout(()=>{this.horseSound.play();},700)
       // // 得分音檔
-      // this.getScoreSound = this.sound.add('getScoreSound');
-      // this.getScoreSound.volume = 0.6;
-      // this.getScoreSound.setRate(2);
+      this.getScoreSound = this.sound.add('getScoreSound');
+      this.getScoreSound.volume = 0.6;
+      this.getScoreSound.setRate(2);
 
       // 取得分數
       function getScore(player, mail){
@@ -172,7 +172,7 @@ const gamePlay = {
         }
         mail.destroy()
         _this.score.setText(`X ${mailNum}`);
-        // _this.getScoreSound.play();
+        _this.getScoreSound.play();
       }
 
       function playerDead(player, obstacle){
