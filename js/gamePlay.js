@@ -180,7 +180,7 @@ const gamePlay = {
         _this.gameOver= _this.add.text(w/2 -120,h/3, `Game Over`, {color:'white', fontSize: '50px', fontFamily:"roboto"});
         _this.startAgain= _this.add.text(w/2 -120,h/2, `press here to restart`, {color:'brown', fontSize: '30px', fontFamily:"roboto"});
         _this.player.anims.stop('run', true);
-        // _this.horseSound.stop();
+        _this.horseSound.stop();
         _this.startAgain.setInteractive();
         _this.startAgain.on('pointerdown', () => {
           _this.scene.start('gamePlay');
