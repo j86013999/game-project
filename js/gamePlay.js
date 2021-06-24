@@ -52,8 +52,8 @@ const gamePlay = {
       this.load.spritesheet('mail', 'images/player/mail.png',{frameWidth:36,frameHeight:33});
       this.load.spritesheet('player', 'images/player/player.png', {frameWidth:69,frameHeight:50});
       // 音檔
-      // this.load.audio('horseSound', ['../sound/horse_run.mp3']);
-      // this.load.audio('getScoreSound', ['../sound/getScore.mp3']);
+      this.load.audio('horseSound', 'sound/horse_run.mp3');
+      this.load.audio('getScoreSound', 'sound/getScore.mp3');
   },
   create: function(){
       let _this = this;
@@ -154,10 +154,10 @@ const gamePlay = {
         }
       });
       // // 馬跑音檔
-      // this.horseSound = this.sound.add('horseSound');
-      // this.horseSound.loop = true;
-      // this.horseSound.volume = 0.3;
-      // setTimeout(()=>{this.horseSound.play();},700)
+      this.horseSound = this.sound.add('horseSound');
+      this.horseSound.loop = true;
+      this.horseSound.volume = 0.3;
+      setTimeout(()=>{this.horseSound.play();},700)
       // // 得分音檔
       // this.getScoreSound = this.sound.add('getScoreSound');
       // this.getScoreSound.volume = 0.6;
